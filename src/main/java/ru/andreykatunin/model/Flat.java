@@ -1,6 +1,6 @@
 package ru.andreykatunin.model;
 
-public class Item {
+public class Flat {
     private Integer attr1;
     private Integer attr2;
     private Integer attr3;
@@ -12,7 +12,7 @@ public class Item {
     private String attr9;
     private String attr10;
 
-    public Item() {
+    public Flat() {
     }
 
     public Integer getAttr1() {
