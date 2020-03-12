@@ -1,29 +1,63 @@
 package ru.andreykatunin.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
+@ApiModel(description = "Модель данных поиска недвижимости")
 public class Building {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @ApiModelProperty(notes = "Идентификатор записи БД")
     private int id;
+    @ApiModelProperty(notes = "Идентификатор района")
+    private int districtId;
+    @ApiModelProperty(notes = "Адрес объекта недвижимости")
     private String address;
-    private String district;
+    @ApiModelProperty(notes = "Станция метро")
     private String metro;
+    @ApiModelProperty(notes = "Информация о недвижимости")
     private String realtyInfo;
+    @ApiModelProperty(notes = "Этаж")
     private int floors;
+    @ApiModelProperty(notes = "Начало строительства")
     private LocalDate buildStartDate;
+    @ApiModelProperty(notes = "Окончание строительства")
     private LocalDate buildFinishDate;
+    @ApiModelProperty(notes = "Лифты")
     private String elevator;
+    @ApiModelProperty(notes = "Фасад")
     private String facade;
+    @ApiModelProperty(notes = "Окна")
     private String windows;
+    @ApiModelProperty(notes = "Информация о парковке")
     private String parkingInfo;
+    @ApiModelProperty(notes = "Цена парковки от")
     private double parkingPriceFrom;
+    @ApiModelProperty(notes = "Цена парковки до")
     private double parkingPriceTo;
+    @ApiModelProperty(notes = "Ссылка на презентацию")
     private String presentationLink;
+    @ApiModelProperty(notes = "Ссылка на прайс")
     private String priceLink;
+    @ApiModelProperty(notes = "Ипотека")
     private String mortgage;
+    @ApiModelProperty(notes = "Рассрочка")
     private String installment;
+    @ApiModelProperty(notes = "Акции")
     private String special;
+    @ApiModelProperty(notes = "Комерческая площадь")
     private double commercialArea;
+    @ApiModelProperty(notes = "Вознаграждение")
     private String fee;
+    @ApiModelProperty(notes = "Карточка ЖК/дома")
+    private String card;
 
     public Building() {
     }
@@ -36,20 +70,20 @@ public class Building {
         this.id = id;
     }
 
+    public int getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(int districtId) {
+        this.districtId = districtId;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
     }
 
     public String getMetro() {
@@ -194,5 +228,13 @@ public class Building {
 
     public void setFee(String fee) {
         this.fee = fee;
+    }
+
+    public String getCard() {
+        return card;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
     }
 }

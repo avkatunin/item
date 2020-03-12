@@ -1,21 +1,46 @@
 package ru.andreykatunin.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
+@ApiModel(description = "Модель данных объекта недвижимости")
 public class Realty {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @ApiModelProperty(notes = "Идентификатор записи БД")
     private int id;
+    @ApiModelProperty(notes = "Идентификатор записи здания")
     private int buildingId;
+    @ApiModelProperty(notes = "Тип недвижимости")
     private String realtyType;
+    @ApiModelProperty(notes = "Адрес")
     private String address;
+    @ApiModelProperty(notes = "Площадь")
     private double area;
+    @ApiModelProperty(notes = "Цена")
     private double price;
+    @ApiModelProperty(notes = "Цена за квадратный метр")
     private double pricePerSquareMeter;
+    @ApiModelProperty(notes = "Количество спален")
     private int amountBedrooms;
+    @ApiModelProperty(notes = "Высота потолков")
     private float ceilingHeight;
+    @ApiModelProperty(notes = "Этаж")
     private int floor;
+    @ApiModelProperty(notes = "Сдан")
     private boolean rented;
+    @ApiModelProperty(notes = "Срок сдачи")
     private LocalDate deadline;
+    @ApiModelProperty(notes = "Вторичка")
     private boolean secondary;
+    @ApiModelProperty(notes = "Информация об объекте")
     private String info;
 
     public Realty() {
