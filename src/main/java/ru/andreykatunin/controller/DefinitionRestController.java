@@ -1,10 +1,10 @@
 package ru.andreykatunin.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import ru.andreykatunin.model.*;
+import ru.andreykatunin.model.mail.MailData;
+import ru.andreykatunin.services.mail.EmailServiceImpl;
 
 import java.time.LocalDate;
 
@@ -16,9 +16,18 @@ public class DefinitionRestController {
     public DefinitionRestController() {
     }
 
+    @Autowired
+    public EmailServiceImpl service;
+
+    @PostMapping(value = "/check-mail")
+    public String checkMail(@RequestBody MailData mailData) {
+        service.sendSimpleMessage(mailData.getTo(), mailData.getSubject(), mailData.getText());
+        return "ok";
+    }
+
     @GetMapping(value = "/user")
-    public User userDefinition() {
-        User user = new User();
+    public Users userDefinition() {
+        Users user = new Users();
         user.setId(1);
         user.setRoleId(2);
         user.setCity("Москва");

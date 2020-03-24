@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @ApiModel(description = "Модель данных района")
 public class District {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @ApiModelProperty(notes = "Идентификатор записи БД")
     private int id;
     @ApiModelProperty(notes = "Название района")

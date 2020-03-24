@@ -3,17 +3,14 @@ package ru.andreykatunin.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @ApiModel(description = "Модель данных объекта недвижимости")
 public class Realty {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @ApiModelProperty(notes = "Идентификатор записи БД")
     private int id;
     @ApiModelProperty(notes = "Идентификатор записи здания")

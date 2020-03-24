@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @ApiModel(description = "Модель данных застройщика")
 public class Developer {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @ApiModelProperty(notes = "Идентификатор записи БД")
     private int id;
     @ApiModelProperty(notes = "Название")

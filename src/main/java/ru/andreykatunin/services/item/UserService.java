@@ -3,8 +3,9 @@ package ru.andreykatunin.services.item;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-import ru.andreykatunin.model.User;
+import ru.andreykatunin.model.Users;
 import ru.andreykatunin.repository.UserRepository;
+import ru.andreykatunin.services.dao.EntityDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,11 @@ public class UserService {
     private final static Logger logger = LogManager.getLogger(UserService.class);
 
     private final UserRepository repository;
+    private final EntityDao dao;
 
-    public UserService(UserRepository repository) {
+    public UserService(UserRepository repository, EntityDao dao) {
         this.repository = repository;
+        this.dao = dao;
     }
 
     /**
@@ -31,25 +34,23 @@ public class UserService {
      * Get user by id
      * @param id user
      */
-    public User getUser(Long id) {
+    public Users getUser(Long id) {
         return repository.findById(id).orElseGet(() -> {
             return null;
         });
     }
 
-    public User getUser(String email) {
-        return repository.findByEmail(email).orElseGet(() -> {
-            return null;
-        });
+    public Users getUser(String email) {
+        return dao.findByEmail(email);
     }
 
     /**
      * Get All user from DataBase
      * @return List of User objects
      */
-    public List<User> getAllUser() {
-        Iterable<User> iterable = repository.findAll();
-        List<User> result = new ArrayList<>();
+    public List<Users> getAllUser() {
+        Iterable<Users> iterable = repository.findAll();
+        List<Users> result = new ArrayList<>();
         iterable.forEach(result::add);
         return result;
     }
@@ -59,12 +60,12 @@ public class UserService {
      * @param user object from client
      * @return User object from DataBase
      */
-    public User saveUser(User user) {
+    public Users saveUser(Users user) {
         return repository.save(user);
     }
 
-    public User changeUserRole(Long roleId, Long userId) {
-        User user = getUser(userId);
+    public Users changeUserRole(Long roleId, Long userId) {
+        Users user = getUser(userId);
         if (user == null)
             return null;
         user.setRoleId(roleId.intValue());

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @ApiModel(description = "Модель данных поиска недвижимости")
 public class Building {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @ApiModelProperty(notes = "Идентификатор записи БД")
     private int id;
     @ApiModelProperty(notes = "Идентификатор района")
@@ -57,7 +57,7 @@ public class Building {
     @ApiModelProperty(notes = "Вознаграждение")
     private String fee;
     @ApiModelProperty(notes = "Карточка ЖК/дома")
-    private String card;
+    private byte[] card;
 
     public Building() {
     }
@@ -230,11 +230,11 @@ public class Building {
         this.fee = fee;
     }
 
-    public String getCard() {
+    public byte[] getCard() {
         return card;
     }
 
-    public void setCard(String card) {
+    public void setCard(byte[] card) {
         this.card = card;
     }
 }

@@ -35,8 +35,8 @@ public class EntityDao {
         return jdbcTemplate.query(DataBaseQueries.SELECT_ALL_RECORDS_REALTY, new BeanPropertyRowMapper<>(Realty.class));
     }
 
-    public List<User> getAllUserFromDB() {
-        return jdbcTemplate.query(DataBaseQueries.SELECT_ALL_RECORDS_USER, new BeanPropertyRowMapper<>(User.class));
+    public List<Users> getAllUserFromDB() {
+        return jdbcTemplate.query(DataBaseQueries.SELECT_ALL_RECORDS_USER, new BeanPropertyRowMapper<>(Users.class));
     }
 
     public List<Building> getAllBuildingFromDB() {
@@ -56,13 +56,13 @@ public class EntityDao {
         return jdbcTemplate.query(DataBaseQueries.SELECT_REALTY_BY_ID, new Object[]{id}, new BeanPropertyRowMapper<>(Realty.class)).get(0);
     }
 
-    public User getUserById(Long id) {
-        return jdbcTemplate.query(DataBaseQueries.SELECT_USER_BY_ID, new Object[]{id}, new BeanPropertyRowMapper<>(User.class)).get(0);
+    public Users getUserById(Long id) {
+        return jdbcTemplate.query(DataBaseQueries.SELECT_USER_BY_ID, new Object[]{id}, new BeanPropertyRowMapper<>(Users.class)).get(0);
     }
 
-    public User getUserByEmail(String email) {
+    public Users findByEmail(String email) {
         try {
-            return jdbcTemplate.queryForObject(DataBaseQueries.SELECT_USER_BY_EMAIL, new Object[]{email}, new BeanPropertyRowMapper<>(User.class));
+            return jdbcTemplate.queryForObject(DataBaseQueries.SELECT_USER_BY_EMAIL, new Object[]{email}, new BeanPropertyRowMapper<>(Users.class));
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -125,7 +125,7 @@ public class EntityDao {
         return (int) keyHolder.getKeyList().get(0).get("id");
     }
 
-    public int addUserRecordToDB(User user) {
+    public int addUserRecordToDB(Users user) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         SqlParameterSource districtParameters = new BeanPropertySqlParameterSource(user);
         namedParameterJdbcTemplate.update(DataBaseQueries.INSERT_USER_RECORD,

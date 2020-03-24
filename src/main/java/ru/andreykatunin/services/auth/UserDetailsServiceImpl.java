@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.andreykatunin.model.Users;
 import ru.andreykatunin.services.item.UserService;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("CHECK user " + username);
         if (username.equals(""))
             throw new UsernameNotFoundException("User not found");
-        ru.andreykatunin.model.User user = service.getUser(username);
+        Users user = service.getUser(username);
         if (user == null) {
             System.out.println("NOT FOUND user " + username);
             throw new UsernameNotFoundException("User not found");

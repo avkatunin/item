@@ -11,6 +11,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import ru.andreykatunin.exception.CustomAuthenticationFailureHandler;
 import ru.andreykatunin.services.auth.UserDetailsServiceImpl;
 
 @Configuration
@@ -45,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/index.html")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/index.html")
-                .failureUrl("/index.html?error=Error")
+                .failureHandler(customAuthenticationFailureHandler())
                 .permitAll()
 
                 .and()
@@ -59,6 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/403")
 
                 .and()
+                .rememberMe()
+                .and()
                 .csrf().disable();
     }
 
@@ -70,6 +78,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .ignoring()
                 .antMatchers(HttpMethod.POST, "/api/v1/user");
+    }
+
+    @Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
 }
