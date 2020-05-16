@@ -40,20 +40,6 @@ public class DefinitionRestController {
     @GetMapping(value = "/building")
     public Building buildingDefinition() {
         Building building = new Building();
-        building.setId(12);
-        building.setAddress("Тверская улица, дом 13");
-        building.setBuildFinishDate(LocalDate.MIN);
-        building.setBuildFinishDate(LocalDate.MAX);
-        building.setCommercialArea(2001.57);
-        building.setDistrictId(1);
-        building.setElevator("1 пассижрный, 1 грузовой");
-        building.setFacade("Облицовка");
-        building.setFee("50 процентов");
-        building.setFloors(12);
-        building.setInstallment("50 процентов");
-        building.setMetro("Академическая");
-        building.setSpecial("Акций нет");
-        building.setWindows("Во двор");
         return building;
     }
 

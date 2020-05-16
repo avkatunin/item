@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import ru.andreykatunin.model.Users;
 import ru.andreykatunin.repository.UserRepository;
-import ru.andreykatunin.services.dao.EntityDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +14,9 @@ public class UserService {
     private final static Logger logger = LogManager.getLogger(UserService.class);
 
     private final UserRepository repository;
-    private final EntityDao dao;
 
-    public UserService(UserRepository repository, EntityDao dao) {
+    public UserService(UserRepository repository) {
         this.repository = repository;
-        this.dao = dao;
     }
 
     /**
@@ -33,15 +30,19 @@ public class UserService {
     /**
      * Get user by id
      * @param id user
+     * @return user
      */
     public Users getUser(Long id) {
-        return repository.findById(id).orElseGet(() -> {
-            return null;
-        });
+        return repository.findById(id).orElseGet(() -> null);
     }
 
+    /**
+     * Get user by email
+     * @param email user email
+     * @return user
+     */
     public Users getUser(String email) {
-        return dao.findByEmail(email);
+        return repository.findByEmail(email).orElseGet(() -> null);
     }
 
     /**

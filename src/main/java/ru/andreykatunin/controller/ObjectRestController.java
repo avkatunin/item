@@ -8,7 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 import ru.andreykatunin.model.*;
-import ru.andreykatunin.services.dao.EntityDao;
+import ru.andreykatunin.model.search.SearchRequest;
+import ru.andreykatunin.services.dao.SearchDao;
 import ru.andreykatunin.services.item.*;
 
 import java.util.List;
@@ -20,29 +21,30 @@ import java.util.List;
 public class ObjectRestController {
     private final static Logger logger = LogManager.getLogger(ObjectRestController.class);
 
-    private final EntityService entityService;
     private final UserService userService;
     private final DeveloperService developerService;
     private final BuildingService buildingService;
     private final DistrictService districtService;
     private final RealtyService realtyService;
-    private final EntityDao entityDao;
+    private final HousingComplexService housingComplexService;
+    private final SearchDao searchDao;
 
     public ObjectRestController(
-            EntityService entityService,
             UserService userService,
             DeveloperService developerService,
             BuildingService buildingService,
             DistrictService districtService,
             RealtyService realtyService,
-            EntityDao entityDao) {
-        this.entityService = entityService;
+            HousingComplexService housingComplexService,
+            SearchDao searchDao
+    ) {
         this.userService = userService;
         this.developerService = developerService;
         this.buildingService = buildingService;
         this.districtService = districtService;
         this.realtyService = realtyService;
-        this.entityDao = entityDao;
+        this.housingComplexService = housingComplexService;
+        this.searchDao = searchDao;
     }
 
     @ApiOperation(value = "View a list of all entities", response = List.class)
@@ -67,6 +69,8 @@ public class ObjectRestController {
                 return userService.getAllUser();
             case "district":
                 return districtService.getAllDistrict();
+            case "housingComplex":
+                return housingComplexService.getAll();
 
             default:
                 return null;
@@ -193,9 +197,9 @@ public class ObjectRestController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @PostMapping("/search")
-    List<Realty> search(@RequestBody Search search) {
-        logger.info("Search query {}", search.toString());
-        return entityDao.getRealtyBySearchFromDB(search);
+    List<Realty> search(@RequestBody SearchRequest searchRequest) {
+        logger.info("Search query {}", searchRequest.toString());
+        return searchDao.getRealtyBySearchFromDB(searchRequest);
     }
 
 }

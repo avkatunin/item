@@ -38,7 +38,8 @@ public class UserController {
             Environment env,
             UserService userService,
             UserAccessRepository repository,
-            EmailServiceImpl emailService) {
+            EmailServiceImpl emailService
+    ) {
         this.env = env;
         this.userService = userService;
         this.repository = repository;

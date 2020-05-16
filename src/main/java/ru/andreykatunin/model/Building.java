@@ -18,223 +18,153 @@ public class Building {
     private int id;
     @ApiModelProperty(notes = "Идентификатор района")
     private int districtId;
+    @ApiModelProperty(notes = "Идентификатор застройщика")
+    private int developerId;
+    @ApiModelProperty(notes = "Идентификатор жилого комплекса")
+    private String housingComplexId;
+    @ApiModelProperty(notes = "Название объекта")
+    private String name;
     @ApiModelProperty(notes = "Адрес объекта недвижимости")
     private String address;
     @ApiModelProperty(notes = "Станция метро")
     private String metro;
-    @ApiModelProperty(notes = "Информация о недвижимости")
-    private String realtyInfo;
+    @ApiModelProperty(notes = "Статус")
+    private String status;
+    @ApiModelProperty(notes = "Срок сдачи")
+    private LocalDate deadline;
+    @ApiModelProperty(notes = "Кол-во кв./аппарт.")
+    private int numberOfApartments;
+    @ApiModelProperty(notes = "S кв./аппарт.")
+    private String areaRange;
     @ApiModelProperty(notes = "Этаж")
     private int floors;
-    @ApiModelProperty(notes = "Начало строительства")
-    private LocalDate buildStartDate;
-    @ApiModelProperty(notes = "Окончание строительства")
-    private LocalDate buildFinishDate;
-    @ApiModelProperty(notes = "Лифты")
-    private String elevator;
-    @ApiModelProperty(notes = "Фасад")
-    private String facade;
-    @ApiModelProperty(notes = "Окна")
-    private String windows;
-    @ApiModelProperty(notes = "Информация о парковке")
-    private String parkingInfo;
-    @ApiModelProperty(notes = "Цена парковки от")
-    private double parkingPriceFrom;
-    @ApiModelProperty(notes = "Цена парковки до")
-    private double parkingPriceTo;
-    @ApiModelProperty(notes = "Ссылка на презентацию")
-    private String presentationLink;
-    @ApiModelProperty(notes = "Ссылка на прайс")
-    private String priceLink;
-    @ApiModelProperty(notes = "Ипотека")
-    private String mortgage;
-    @ApiModelProperty(notes = "Рассрочка")
-    private String installment;
-    @ApiModelProperty(notes = "Акции")
-    private String special;
-    @ApiModelProperty(notes = "Комерческая площадь")
-    private double commercialArea;
+    @ApiModelProperty(notes = "Стоимость")
+    private double cost;
+    @ApiModelProperty(notes = "Высота потолков")
+    private double ceilingHeight;
+    @ApiModelProperty(notes = "Кол-во машиномест")
+    private int numberOfParkingSpaces;
+    @ApiModelProperty(notes = "Стоимость машиноместа")
+    private double parkingSpaceCost;
+    @ApiModelProperty(notes = "Отделка")
+    private String decoration;
+    @ApiModelProperty(notes = "Документы продажи")
+    private String salesDocuments;
+    @ApiModelProperty(notes = "Коммунальные платежи")
+    private String utilityBills;
+    @ApiModelProperty(notes = "Архитектор Генподрядчик")
+    private String generalContractor;
     @ApiModelProperty(notes = "Вознаграждение")
-    private String fee;
-    @ApiModelProperty(notes = "Карточка ЖК/дома")
-    private byte[] card;
+    private String award;
 
     public Building() {
+    }
+
+    public Building(int id, int districtId, int developerId, String housingComplexId, String name, String address, String metro, String status, LocalDate deadline, int numberOfApartments, String areaRange, int floors, double cost, double ceilingHeight, int numberOfParkingSpaces, double parkingSpaceCost, String decoration, String salesDocuments, String utilityBills, String generalContractor, String award) {
+        this.id = id;
+        this.districtId = districtId;
+        this.developerId = developerId;
+        this.housingComplexId = housingComplexId;
+        this.name = name;
+        this.address = address;
+        this.metro = metro;
+        this.status = status;
+        this.deadline = deadline;
+        this.numberOfApartments = numberOfApartments;
+        this.areaRange = areaRange;
+        this.floors = floors;
+        this.cost = cost;
+        this.ceilingHeight = ceilingHeight;
+        this.numberOfParkingSpaces = numberOfParkingSpaces;
+        this.parkingSpaceCost = parkingSpaceCost;
+        this.decoration = decoration;
+        this.salesDocuments = salesDocuments;
+        this.utilityBills = utilityBills;
+        this.generalContractor = generalContractor;
+        this.award = award;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(int districtId) {
-        this.districtId = districtId;
+    public int getDeveloperId() {
+        return developerId;
+    }
+
+    public String getHousingComplexId() {
+        return housingComplexId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getMetro() {
         return metro;
     }
 
-    public void setMetro(String metro) {
-        this.metro = metro;
+    public String getStatus() {
+        return status;
     }
 
-    public String getRealtyInfo() {
-        return realtyInfo;
+    public LocalDate getDeadline() {
+        return deadline;
     }
 
-    public void setRealtyInfo(String realtyInfo) {
-        this.realtyInfo = realtyInfo;
+    public int getNumberOfApartments() {
+        return numberOfApartments;
+    }
+
+    public String getAreaRange() {
+        return areaRange;
     }
 
     public int getFloors() {
         return floors;
     }
 
-    public void setFloors(int floors) {
-        this.floors = floors;
+    public double getCost() {
+        return cost;
     }
 
-    public LocalDate getBuildStartDate() {
-        return buildStartDate;
+    public double getCeilingHeight() {
+        return ceilingHeight;
     }
 
-    public void setBuildStartDate(LocalDate buildStartDate) {
-        this.buildStartDate = buildStartDate;
+    public int getNumberOfParkingSpaces() {
+        return numberOfParkingSpaces;
     }
 
-    public LocalDate getBuildFinishDate() {
-        return buildFinishDate;
+    public double getParkingSpaceCost() {
+        return parkingSpaceCost;
     }
 
-    public void setBuildFinishDate(LocalDate buildFinishDate) {
-        this.buildFinishDate = buildFinishDate;
+    public String getDecoration() {
+        return decoration;
     }
 
-    public String getElevator() {
-        return elevator;
+    public String getSalesDocuments() {
+        return salesDocuments;
     }
 
-    public void setElevator(String elevator) {
-        this.elevator = elevator;
+    public String getUtilityBills() {
+        return utilityBills;
     }
 
-    public String getFacade() {
-        return facade;
+    public String getGeneralContractor() {
+        return generalContractor;
     }
 
-    public void setFacade(String facade) {
-        this.facade = facade;
-    }
-
-    public String getWindows() {
-        return windows;
-    }
-
-    public void setWindows(String windows) {
-        this.windows = windows;
-    }
-
-    public String getParkingInfo() {
-        return parkingInfo;
-    }
-
-    public void setParkingInfo(String parkingInfo) {
-        this.parkingInfo = parkingInfo;
-    }
-
-    public double getParkingPriceFrom() {
-        return parkingPriceFrom;
-    }
-
-    public void setParkingPriceFrom(double parkingPriceFrom) {
-        this.parkingPriceFrom = parkingPriceFrom;
-    }
-
-    public double getParkingPriceTo() {
-        return parkingPriceTo;
-    }
-
-    public void setParkingPriceTo(double parkingPriceTo) {
-        this.parkingPriceTo = parkingPriceTo;
-    }
-
-    public String getPresentationLink() {
-        return presentationLink;
-    }
-
-    public void setPresentationLink(String presentationLink) {
-        this.presentationLink = presentationLink;
-    }
-
-    public String getPriceLink() {
-        return priceLink;
-    }
-
-    public void setPriceLink(String priceLink) {
-        this.priceLink = priceLink;
-    }
-
-    public String getMortgage() {
-        return mortgage;
-    }
-
-    public void setMortgage(String mortgage) {
-        this.mortgage = mortgage;
-    }
-
-    public String getInstallment() {
-        return installment;
-    }
-
-    public void setInstallment(String installment) {
-        this.installment = installment;
-    }
-
-    public String getSpecial() {
-        return special;
-    }
-
-    public void setSpecial(String special) {
-        this.special = special;
-    }
-
-    public double getCommercialArea() {
-        return commercialArea;
-    }
-
-    public void setCommercialArea(double commercialArea) {
-        this.commercialArea = commercialArea;
-    }
-
-    public String getFee() {
-        return fee;
-    }
-
-    public void setFee(String fee) {
-        this.fee = fee;
-    }
-
-    public byte[] getCard() {
-        return card;
-    }
-
-    public void setCard(byte[] card) {
-        this.card = card;
+    public String getAward() {
+        return award;
     }
 }
