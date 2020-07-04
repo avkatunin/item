@@ -20,10 +20,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class ExcelParserTest {
 
@@ -105,5 +104,17 @@ public class ExcelParserTest {
         } catch (IOException | ParserConfigurationException | TransformerException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void base64() {
+        byte[] document = null;
+        try {
+            document = Files.readAllBytes(Paths.get("/home/andrei/Загрузки/file.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String documentAsString = Base64.getEncoder().encodeToString(document);
+        System.out.println(documentAsString);
     }
 }

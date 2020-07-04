@@ -1,6 +1,5 @@
 package ru.andreykatunin.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.andreykatunin.model.*;
 import ru.andreykatunin.model.mail.MailData;
@@ -13,11 +12,13 @@ import java.time.LocalDate;
 @RequestMapping("/api/v1/meta")
 public class DefinitionRestController {
 
-    public DefinitionRestController() {
+    public DefinitionRestController(
+            EmailServiceImpl service
+    ) {
+        this.service = service;
     }
 
-    @Autowired
-    public EmailServiceImpl service;
+    public final EmailServiceImpl service;
 
     @PostMapping(value = "/check-mail")
     public String checkMail(@RequestBody MailData mailData) {
@@ -28,7 +29,7 @@ public class DefinitionRestController {
     @GetMapping(value = "/user")
     public Users userDefinition() {
         Users user = new Users();
-        user.setId(1);
+        user.setId(1L);
         user.setRoleId(2);
         user.setCity("Москва");
         user.setCompany("ПТБ");
@@ -46,7 +47,7 @@ public class DefinitionRestController {
     @GetMapping(value = "/district")
     public District districtDefinition() {
         District district = new District();
-        district.setId(1);
+        district.setId(1L);
         district.setName("Хамовники");
         district.setDescription("ОЧЕНЬ хороший раён");
         return district;
@@ -55,7 +56,7 @@ public class DefinitionRestController {
     @GetMapping(value = "/developer")
     public Developer developerDefinition() {
         Developer developer = new Developer();
-        developer.setId(1);
+        developer.setId(1L);
         developer.setName("ПИК");
         developer.setViewContacts("+7 (919) 134-61-35");
         developer.setCommonContacts("+7 (914) 714-14-16");
@@ -66,7 +67,7 @@ public class DefinitionRestController {
     @GetMapping(value = "/realty")
     public Realty realtyDefinition() {
         Realty realty = new Realty();
-        realty.setId(104);
+        realty.setId(104L);
         realty.setAddress("Тверская улица, дом 13, кв.69");
         realty.setAmountBedrooms(2);
         realty.setArea(100.15);

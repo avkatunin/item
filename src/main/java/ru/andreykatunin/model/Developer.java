@@ -14,7 +14,7 @@ public class Developer {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @ApiModelProperty(notes = "Идентификатор записи БД")
-    private int id;
+    private Long id;
     @ApiModelProperty(notes = "Название")
     private String name;
     @ApiModelProperty(notes = "Контакты застройщика (общедоступный)")
@@ -29,11 +29,11 @@ public class Developer {
     public Developer() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

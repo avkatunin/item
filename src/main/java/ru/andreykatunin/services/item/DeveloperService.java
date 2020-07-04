@@ -41,7 +41,7 @@ public class DeveloperService {
      * Get All developer from DataBase
      * @return List of Developer objects
      */
-    public List<Developer> getAllDeveloper() {
+    public List<Developer> getAll() {
         Iterable<Developer> iterable = repository.findAll();
         List<Developer> result = new ArrayList<>();
         iterable.forEach(result::add);

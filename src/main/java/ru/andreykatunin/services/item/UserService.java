@@ -49,7 +49,7 @@ public class UserService {
      * Get All user from DataBase
      * @return List of User objects
      */
-    public List<Users> getAllUser() {
+    public List<Users> getAll() {
         Iterable<Users> iterable = repository.findAll();
         List<Users> result = new ArrayList<>();
         iterable.forEach(result::add);

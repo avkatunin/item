@@ -41,7 +41,7 @@ public class BuildingService {
      * Get All building from DataBase
      * @return List of Building objects
      */
-    public List<Building> getAllBuilding() {
+    public List<Building> getAll() {
         Iterable<Building> iterable = repository.findAll();
         List<Building> result = new ArrayList<>();
         iterable.forEach(result::add);

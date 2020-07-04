@@ -14,7 +14,7 @@ public class District {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @ApiModelProperty(notes = "Идентификатор записи БД")
-    private int id;
+    private Long id;
     @ApiModelProperty(notes = "Название района")
     private String name;
     @ApiModelProperty(notes = "Описание района")
@@ -23,11 +23,11 @@ public class District {
     public District() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

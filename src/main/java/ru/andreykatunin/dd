@@ -1,0 +1,168 @@
+
+    Long id;
+    String name;
+    LocalDate saleStart;
+    String shortDescription;
+    @ApiModelProperty(notes = "Особенная информация о ЖК")
+    @Column(name = "feature_description")
+    String featureDescription;
+    @ApiModelProperty(notes = "Информация по продажам в ЖК")
+    @Column(name = "sale_description")
+    String saleDescription;
+    @ApiModelProperty(notes = "Информация о внешней инфраструктуры ЖК")
+    @Column(name = "outside_infrastructure_description")
+    String outsideInfrastructureDescription;
+    @ApiModelProperty(notes = "Основная информация о ЖК")
+    @Column(name = "main_description")
+    String mainDescription;
+    @ApiModelProperty(notes = "Информация о расположении ЖК")
+    @Column(name = "location_description")
+    String locationDescription;
+    @ApiModelProperty(notes = "Вид объекта")
+    @Column(name = "realty_type")
+    String realtyType;
+    @ApiModelProperty(notes = "Лоты")
+    @Column(name = "lots")
+    String lots;
+    @ApiModelProperty(notes = "Этажность")
+    @Column(name = "floors")
+    String floors;
+    @ApiModelProperty(notes = "Начало")
+    @Column(name = "build_start")
+    LocalDate buildStart;
+    @ApiModelProperty(notes = "Сдача")
+    @Column(name = "build_end")
+    LocalDate buildEnd;
+    @ApiModelProperty(notes = "Цена")
+    @Column(name = "price_per_square_meter")
+    String pricePerSquareMeter;
+    @ApiModelProperty(notes = "Площадь")
+    @Column(name = "area")
+    String area;
+
+    @ApiModelProperty(notes = "Район")
+    @OneToOne
+    @JoinColumn(name = "district_id", referencedColumnName = "id")
+    District district;
+
+    @ApiModelProperty(notes = "Адрес")
+    @Column(name = "address")
+    String address;
+    @ApiModelProperty(notes = "Метро")
+    @Column(name = "metro")
+    String metro;
+
+    @ApiModelProperty(notes = "Девелопер")
+    @OneToOne
+    @JoinColumn(name = "developer_id", referencedColumnName = "id")
+    Developer developer;
+
+    @ApiModelProperty(notes = "Архитекторы")
+    @Column(name = "architect")
+    String architect;
+    @ApiModelProperty(notes = "Информация о материалах отделки")
+    @Column(name = "decoration_materials_description")
+    String decorationMaterialsDescription;
+    @ApiModelProperty(notes = "Лифты")
+    @Column(name = "elevator")
+    String elevator;
+    @ApiModelProperty(notes = "Фасад")
+    @Column(name = "facade")
+    String facade;
+    @ApiModelProperty(notes = "Окна")
+    @Column(name = "windows")
+    String windows;
+
+    @ApiModelProperty(notes = "Площадь 1-комнатной квартиры")
+    @Column(name = "one_room_area")
+    String oneRoomArea;
+    @ApiModelProperty(notes = "Цена 1-комнатной квартиры")
+    @Column(name = "one_room_price")
+    String oneRoomPrice;
+    @ApiModelProperty(notes = "Площадь 2-комнатной квартиры")
+    @Column(name = "two_room_area")
+    String twoRoomArea;
+    @ApiModelProperty(notes = "Цена 2-комнатной квартиры")
+    @Column(name = "two_room_price")
+    String twoRoomPrice;
+    @ApiModelProperty(notes = "Площадь 3-комнатной квартиры")
+    @Column(name = "three_room_area")
+    String threeRoomArea;
+    @ApiModelProperty(notes = "Цена 3-комнатной квартиры")
+    @Column(name = "three_room_price")
+    String threeRoomPrice;
+    @ApiModelProperty(notes = "Площадь 4-комнатной квартиры")
+    @Column(name = "four_room_area")
+    String fourRoomArea;
+    @ApiModelProperty(notes = "Цена 4-комнатной квартиры")
+    @Column(name = "four_room_price")
+    String fourRoomPrice;
+    @ApiModelProperty(notes = "Площадь 5-комнатной квартиры")
+    @Column(name = "five_room_area")
+    String fiveRoomArea;
+    @ApiModelProperty(notes = "Цена 5-комнатной квартиры")
+    @Column(name = "five_room_price")
+    String fiveRoomPrice;
+    @ApiModelProperty(notes = "Площадь пентхауса")
+    @Column(name = "penthouse_area")
+    String penthouseArea;
+    @ApiModelProperty(notes = "Цена пентхауса")
+    @Column(name = "penthouse_price")
+    String penthousePrice;
+
+    @ApiModelProperty(notes = "Налог")
+    @Column(name = "tax")
+    String tax;
+    @ApiModelProperty(notes = "Содержание")
+    @Column(name = "support")
+    String support;
+    @ApiModelProperty(notes = "Договор")
+    @Column(name = "contract")
+    String contract;
+    @ApiModelProperty(notes = "Потолки")
+    @Column(name = "ceiling_height")
+    Float ceilingHeight;
+    @ApiModelProperty(notes = "Паркинг")
+    @Column(name = "parking")
+    String parking;
+    @ApiModelProperty(notes = "Ипотека")
+    @Column(name = "mortgage")
+    String mortgage;
+    @ApiModelProperty(notes = "Рассрочка")
+    @Column(name = "installment")
+    String installment;
+    @ApiModelProperty(notes = "Акции")
+    @Column(name = "special")
+    String special;
+    @ApiModelProperty(notes = "Информация о внутренней инфраструктуры ЖК")
+    @Column(name = "inside_infrastructure_description")
+    String insideInfrastructureDescription;
+    @ApiModelProperty(notes = "Коммерческие площади и ритейл")
+    @Column(name = "commercial_area")
+    String commercialArea;
+    @ApiModelProperty(notes = "Будни")
+    @Column(name = "weekday")
+    String weekday;
+    @ApiModelProperty(notes = "Выходные")
+    @Column(name = "weekend")
+    String weekend;
+
+    @ApiModelProperty(notes = "Адрес")
+    @Column(name = "sales_office_address")
+    String salesOfficeAddress;
+    @ApiModelProperty(notes = "Парковка")
+    @Column(name = "sales_office_parking")
+    String salesOfficeParking;
+    @ApiModelProperty(notes = "Контакты")
+    @Column(name = "sales_office_contacts")
+    String salesOfficeContacts;
+    @ApiModelProperty(notes = "Информация для офиса продаж")
+    @Column(name = "sales_office_information")
+    String salesOfficeInformation;
+
+    @ApiModelProperty(notes = "Цена на старте")
+    @Column(name = "start_price")
+    String startPrice;
+    @ApiModelProperty(notes = "Вознаграждение")
+    @Column(name = "award")
+    String award;

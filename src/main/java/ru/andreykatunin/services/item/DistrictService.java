@@ -41,7 +41,7 @@ public class DistrictService {
      * Get All district from DataBase
      * @return List of District objects
      */
-    public List<District> getAllDistrict() {
+    public List<District> getAll() {
         Iterable<District> iterable = repository.findAll();
         List<District> result = new ArrayList<>();
         iterable.forEach(result::add);

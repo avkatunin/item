@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import ru.andreykatunin.model.Users;
 import ru.andreykatunin.model.mail.UserAccess;
@@ -20,28 +21,29 @@ import ru.andreykatunin.services.item.UserService;
 import ru.andreykatunin.services.mail.EmailServiceImpl;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 @Api(value = "User controller")
 public class UserController {
     private final static Logger logger = LogManager.getLogger(UserController.class);
 
     private final Environment env;
-    private final UserService userService;
+    private final UserService service;
     private final UserAccessRepository repository;
     private final EmailServiceImpl emailService;
 
     public UserController(
             Environment env,
-            UserService userService,
+            UserService service,
             UserAccessRepository repository,
             EmailServiceImpl emailService
     ) {
         this.env = env;
-        this.userService = userService;
+        this.service = service;
         this.repository = repository;
         this.emailService = emailService;
     }
@@ -58,7 +60,7 @@ public class UserController {
         Users user = null;
 
         if (Arrays.asList(env.getActiveProfiles()).contains("local")) {
-            return userService.getUser("nana@pochta.ru");
+            return service.getUser("nana@pochta.ru");
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -69,7 +71,7 @@ public class UserController {
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
-            user = userService.getUser(email);
+            user = service.getUser(email);
         }
 
         return user;
@@ -82,33 +84,72 @@ public class UserController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @PostMapping("/user")
+    @PostMapping
     ResponseEntity<?> newUser(@RequestBody Users entity) {
         System.out.println("New user");
         entity.setRoleId(3);
         if (!repository.check(entity.getEmail(), entity.getSecretCode())) {
             return new ResponseEntity<>("Неверный код регистарции", HttpStatus.CONFLICT);
         }
-        Users user = userService.saveUser(entity);
+        Users user = service.saveUser(entity);
         if (user == null)
             return new ResponseEntity<>("Пользователь с таким e-mail уже существует", HttpStatus.CONFLICT);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PatchMapping("/user/{id}")
+    @PatchMapping("/{id}")
     Users changeUserRole(
             @RequestBody Map<String, Object> updates,
             @PathVariable(name = "id") Long id
     ) {
         Long roleId = new Long((Integer) updates.get("roleId"));
         logger.info("Prepare change user {} role to {}", id, roleId);
-        return userService.changeUserRole(roleId, id);
+        return service.changeUserRole(roleId, id);
     }
 
-    @PostMapping("/user/invite")
+    @PostMapping("/invite")
     public String inviteUser(@RequestBody UserAccess access) {
         repository.save(access);
         emailService.sendSimpleMessage(access.getEmail(),"Приглашение на регистарцию", access.getUuid());
         return "ok";
+    }
+
+    @ApiOperation(value = "Delete user by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
+    @DeleteMapping("/{id}")
+    void deleteOne(@PathVariable Long id) {
+        logger.info("Delete user {}", id);
+        service.deleteUser(id);
+    }
+
+    @ApiOperation(value = "View a list of all district", response = List.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
+    @GetMapping
+    List<Users> all() {
+        logger.info("Get all district");
+        return service.getAll();
+    }
+
+    @ApiOperation(value = "View district by id", response = User.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
+    @GetMapping("/{id}")
+    Object one(@PathVariable Long id) {
+        logger.info("Get district {}", id);
+        return service.getUser(id);
     }
 }

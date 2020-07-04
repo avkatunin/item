@@ -41,7 +41,7 @@ public class RealtyService {
      * Get All realty from DataBase
      * @return List of Realty objects
      */
-    public List<Realty> getAllRealty() {
+    public List<Realty> getAll() {
         Iterable<Realty> iterable = repository.findAll();
         List<Realty> result = new ArrayList<>();
         iterable.forEach(result::add);

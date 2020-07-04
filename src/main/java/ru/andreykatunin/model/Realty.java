@@ -2,19 +2,27 @@ package ru.andreykatunin.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import ru.andreykatunin.model.photo.RealtyPhoto;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @ApiModel(description = "Модель данных объекта недвижимости")
-public class Realty {
+public class Realty implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @ApiModelProperty(notes = "Идентификатор записи БД")
-    private int id;
+    private Long id;
     @ApiModelProperty(notes = "Идентификатор записи здания")
     private int buildingId;
+
+    @OneToOne
+    @JoinColumn(name = "buildingId", referencedColumnName = "id", insertable=false, updatable=false)
+    private Building building;
+
     @ApiModelProperty(notes = "Тип недвижимости")
     private String realtyType;
     @ApiModelProperty(notes = "Адрес")
@@ -40,14 +48,17 @@ public class Realty {
     @ApiModelProperty(notes = "Информация об объекте")
     private String info;
 
+    @OneToMany(mappedBy = "realty", cascade = CascadeType.ALL)
+    private List<RealtyPhoto> photos;
+
     public Realty() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,6 +68,14 @@ public class Realty {
 
     public void setBuildingId(int buildingId) {
         this.buildingId = buildingId;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 
     public String getRealtyType() {
@@ -153,5 +172,13 @@ public class Realty {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public List<RealtyPhoto> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<RealtyPhoto> photos) {
+        this.photos = photos;
     }
 }

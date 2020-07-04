@@ -3,25 +3,28 @@ package ru.andreykatunin.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @ApiModel(description = "Модель данных поиска недвижимости")
-public class Building {
+public class Building implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @ApiModelProperty(notes = "Идентификатор записи БД")
-    private int id;
+    private Long id;
     @ApiModelProperty(notes = "Идентификатор района")
     private int districtId;
     @ApiModelProperty(notes = "Идентификатор застройщика")
     private int developerId;
     @ApiModelProperty(notes = "Идентификатор жилого комплекса")
     private String housingComplexId;
+
+    @ManyToOne
+    @JoinColumn(name = "housingComplexId", insertable=false, updatable=false)
+    private HousingComplex housingComplex;
+
     @ApiModelProperty(notes = "Название объекта")
     private String name;
     @ApiModelProperty(notes = "Адрес объекта недвижимости")
@@ -60,7 +63,7 @@ public class Building {
     public Building() {
     }
 
-    public Building(int id, int districtId, int developerId, String housingComplexId, String name, String address, String metro, String status, LocalDate deadline, int numberOfApartments, String areaRange, int floors, double cost, double ceilingHeight, int numberOfParkingSpaces, double parkingSpaceCost, String decoration, String salesDocuments, String utilityBills, String generalContractor, String award) {
+    public Building(Long id, int districtId, int developerId, String housingComplexId, String name, String address, String metro, String status, LocalDate deadline, int numberOfApartments, String areaRange, int floors, double cost, double ceilingHeight, int numberOfParkingSpaces, double parkingSpaceCost, String decoration, String salesDocuments, String utilityBills, String generalContractor, String award) {
         this.id = id;
         this.districtId = districtId;
         this.developerId = developerId;
@@ -84,7 +87,7 @@ public class Building {
         this.award = award;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -98,6 +101,10 @@ public class Building {
 
     public String getHousingComplexId() {
         return housingComplexId;
+    }
+
+    public HousingComplex getHousingComplex() {
+        return housingComplex;
     }
 
     public String getName() {
