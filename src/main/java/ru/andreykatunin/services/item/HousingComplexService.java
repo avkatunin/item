@@ -86,4 +86,5 @@ public class HousingComplexService {
                 .forEach(housingComplexPhoto -> housingComplexPhoto
                         .setLink("http://" + environmentData.hostIP + ":" + environmentData.hostPort + "/api/v2/image/" + housingComplexPhoto.getId()));
     }
+
 }
