@@ -87,4 +87,5 @@ public class HousingComplexService {
                         .setLink("http://" + environmentData.hostIP + ":" + environmentData.hostPort + "/api/v2/image/" + housingComplexPhoto.getId()));
     }
 
+    //yjkr
 }
