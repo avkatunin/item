@@ -1,29 +1,32 @@
 package ru.andreykatunin.services.item;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.andreykatunin.model.HousingComplex;
 import ru.andreykatunin.model.photo.HousingComplexPhoto;
 import ru.andreykatunin.repository.HousingComplexRepository;
+import ru.andreykatunin.repository.PhotoRepository;
 import ru.andreykatunin.services.EnvironmentData;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class HousingComplexService {
 
     private final HousingComplexRepository repository;
+    private final PhotoRepository photoRepository;
     private final EnvironmentData environmentData;
 
     public HousingComplexService(
             HousingComplexRepository repository,
+            PhotoRepository photoRepository,
             EnvironmentData environmentData
     ) {
         this.repository = repository;
+        this.photoRepository = photoRepository;
         this.environmentData = environmentData;
     }
 
@@ -59,18 +62,34 @@ public class HousingComplexService {
      * @param housingComplex
      * @return
      */
-    public HousingComplex saveHousingComplex(HousingComplex housingComplex, MultipartFile[] files) {
-        List<HousingComplexPhoto> housingComplexPhotos = Arrays.stream(files)
-                .map(file -> {
-                    try {
-                        return new HousingComplexPhoto(housingComplex, file.getBytes());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return null;
-                }).collect(Collectors.toList());
-        housingComplex.setPhotos(housingComplexPhotos);
+    public HousingComplex saveHousingComplex(HousingComplex housingComplex) {
         return repository.save(housingComplex);
+    }
+
+    /**
+     *
+     * @param id
+     * @param file
+     * @return
+     */
+    @Transactional
+    public HousingComplexPhoto saveHousingComplexPhoto(Long id, MultipartFile file) {
+        HousingComplexPhoto photo = null;
+        HousingComplex housingComplex = repository.findById(id).orElse(null);
+        if (housingComplex == null)
+            return null;
+        byte[] data;
+        String name;
+        try {
+            data = file.getBytes();
+            name = file.getOriginalFilename();
+            photo = new HousingComplexPhoto(housingComplex, name, "done", data );
+            photo = photoRepository.save(photo);
+            photo.setUrl("http://" + environmentData.hostIP + ":" + environmentData.hostPort + "/api/v2/image/" + photo.getId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return photo;
     }
 
     /**
@@ -84,7 +103,7 @@ public class HousingComplexService {
     private void setImagesLink(HousingComplex complex) {
         complex.getPhotos()
                 .forEach(housingComplexPhoto -> housingComplexPhoto
-                        .setLink("http://" + environmentData.hostIP + ":" + environmentData.hostPort + "/api/v2/image/" + housingComplexPhoto.getId()));
+                        .setUrl("http://" + environmentData.hostIP + ":" + environmentData.hostPort + "/api/v2/image/" + housingComplexPhoto.getId()));
     }
 
     //yjkr

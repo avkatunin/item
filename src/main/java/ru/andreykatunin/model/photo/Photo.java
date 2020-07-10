@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Base64;
 
 @Entity
@@ -19,12 +17,18 @@ public class Photo {
     @ApiModelProperty(notes = "Идентификатор записи БД")
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "status")
+    private String status;
+
     @JsonIgnore
     @Column(name = "data")
     private byte[] data;
 
     @Transient
-    private String link;
+    private String url;
 
     @Column(name = "type")
     private Integer type;
@@ -36,16 +40,38 @@ public class Photo {
         this.data = data;
     }
 
+    public Photo(String name, String status, byte[] data) {
+        this.name = name;
+        this.status = status;
+        this.data = data;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public String getLink() {
-        return link;
+    public String getName() {
+        return name;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public void setData(String content) {

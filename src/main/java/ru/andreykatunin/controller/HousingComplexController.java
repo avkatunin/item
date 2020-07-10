@@ -55,7 +55,7 @@ public class HousingComplexController {
         return service.getHousingComplex(id);
     }
 
-    @ApiOperation(value = "Add new housing complex", response = Object.class)
+    @ApiOperation(value = "Add new housing complex", response = HousingComplex.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -63,11 +63,24 @@ public class HousingComplexController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @PostMapping
-    HousingComplex uploadFiles(
-            @RequestParam("body") HousingComplex housingComplex,
-            @RequestParam("files") MultipartFile[] files
-    ) {
-        return service.saveHousingComplex(housingComplex, files);
+    HousingComplex newOne(@RequestBody HousingComplex housingComplex) {
+        logger.info("New housing complex {}", housingComplex.getName());
+        return service.saveHousingComplex(housingComplex);
+    }
+
+    @ApiOperation(value = "Add new housing complex", response = Object.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
+    @PostMapping(value = "/{id}/photos")
+    HousingComplexPhoto uploadFiles(
+            @RequestParam("file") MultipartFile file,
+            @PathVariable Long id) {
+        logger.info("New housing complex photo id: {} name: {}", id, file.getOriginalFilename());
+        return service.saveHousingComplexPhoto(id, file);
     }
 
     @ApiOperation(value = "Delete housing complex by id")

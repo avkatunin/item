@@ -14,7 +14,6 @@ import java.net.UnknownHostException;
 @RestController
 @RequestMapping("/api/v2/image")
 public class ImageController {
-
     private final PhotoRepository repository;
 
     public ImageController(PhotoRepository repository) {
@@ -30,11 +29,6 @@ public class ImageController {
         if (photo == null || photo.getData() == null)
             throw new IOException("");
         return photo.getData();
-    }
-
-    @GetMapping(value = "/host")
-    String getHost1() throws UnknownHostException {
-        return InetAddress.getLocalHost().getHostAddress();
     }
 
 }

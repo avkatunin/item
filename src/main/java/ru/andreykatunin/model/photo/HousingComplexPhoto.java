@@ -21,8 +21,8 @@ public class HousingComplexPhoto extends Photo implements Serializable {
 
     }
 
-    public HousingComplexPhoto(HousingComplex housingComplex, byte[] data) {
-        super(data);
+    public HousingComplexPhoto(HousingComplex housingComplex, String name, String status, byte[] data) {
+        super(name, status, data);
         this.housingComplex = housingComplex;
     }
 

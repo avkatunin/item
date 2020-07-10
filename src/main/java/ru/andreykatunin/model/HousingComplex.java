@@ -8,6 +8,7 @@ import ru.andreykatunin.model.photo.RealtyPhoto;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "housing_complex")
@@ -189,10 +190,14 @@ public class HousingComplex implements Serializable {
     @Column(name = "award")
     private String award;
 
-    @OneToMany(mappedBy = "housingComplex", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "housingComplex")
     private List<HousingComplexPhoto> photos;
 
     public HousingComplex() {
+    }
+
+    public HousingComplex(Long id) {
+        this.id = id;
     }
 
     public HousingComplex(Long id, String name) {
@@ -426,5 +431,11 @@ public class HousingComplex implements Serializable {
 
     public void setPhotos(List<HousingComplexPhoto> photos) {
         this.photos = photos;
+    }
+
+    public void addPhoto(HousingComplexPhoto photo) {
+        if (photos == null)
+            photos = new ArrayList<>();
+        photos.add(photo);
     }
 }
