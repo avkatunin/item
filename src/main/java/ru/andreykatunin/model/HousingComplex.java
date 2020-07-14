@@ -65,8 +65,11 @@ public class HousingComplex implements Serializable {
 
     @ApiModelProperty(notes = "Район")
     @OneToOne
-    @JoinColumn(name = "district_id", referencedColumnName = "id")
+    @JoinColumn(name = "district_id", referencedColumnName = "id", updatable = false, insertable = false)
     private District district;
+
+    @Column(name = "district_id")
+    private Long districtId;
 
     @ApiModelProperty(notes = "Адрес")
     @Column(name = "address")
@@ -77,8 +80,11 @@ public class HousingComplex implements Serializable {
 
     @ApiModelProperty(notes = "Девелопер")
     @OneToOne
-    @JoinColumn(name = "developer_id", referencedColumnName = "id")
+    @JoinColumn(name = "developer_id", referencedColumnName = "id", updatable = false, insertable = false)
     private Developer developer;
+
+    @Column(name = "developer_id")
+    private Long developerId;
 
     @ApiModelProperty(notes = "Архитекторы")
     @Column(name = "architect")
