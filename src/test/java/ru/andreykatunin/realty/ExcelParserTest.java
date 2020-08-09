@@ -27,47 +27,6 @@ import java.util.*;
 public class ExcelParserTest {
 
     @Test
-    public void readExcel() {
-        try {
-            FileInputStream file = new FileInputStream(new File("src/test/resources/test1.xls"));
-            Workbook workbook = new XSSFWorkbook(file);
-
-            Sheet sheet = workbook.getSheetAt(0);
-
-            Map<Integer, List<String>> data = new HashMap<>();
-            int i = 0;
-            for (Row row : sheet) {
-                data.put(i, new ArrayList<>());
-                for (Cell cell : row) {
-                    switch (cell.getCellTypeEnum()) {
-                        case STRING:
-                            System.out.println(cell.getStringCellValue());
-                            cell.getAddress();
-                            break;
-                        case NUMERIC:
-                            System.out.println(cell.getNumericCellValue());
-                            cell.getAddress();
-                            break;
-                        case BOOLEAN:
-                            System.out.println(cell.getBooleanCellValue());
-                            cell.getAddress();
-                            break;
-                        case FORMULA:
-                            System.out.println(cell.getCellFormula());
-                            cell.getAddress();
-                            break;
-                        default: data.get(new Integer(i)).add(" ");
-                    }
-                }
-                i++;
-            }
-            System.out.println("END");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
     public void convertToHtml() {
         FileInputStream file = null;
         try {

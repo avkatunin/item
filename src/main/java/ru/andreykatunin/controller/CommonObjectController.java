@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 import ru.andreykatunin.model.*;
-import ru.andreykatunin.model.search.SearchRequest;
+import ru.andreykatunin.model.search.RealtyRequest;
 import ru.andreykatunin.services.dao.SearchDao;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +54,9 @@ public class CommonObjectController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @PostMapping("/search")
-    List<Realty> search(@RequestBody SearchRequest searchRequest) {
-        logger.info("Search query {}", searchRequest.toString());
-        return searchDao.getRealtyBySearchFromDB(searchRequest);
+    List<Realty> search(@RequestBody RealtyRequest realtyRequest) {
+        logger.info("Search query {}", realtyRequest.toString());
+        return searchDao.getRealtyBySearchFromDB(realtyRequest);
     }
 
 }

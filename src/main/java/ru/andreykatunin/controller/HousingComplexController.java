@@ -83,6 +83,22 @@ public class HousingComplexController {
         return service.saveHousingComplexPhoto(id, file);
     }
 
+    @ApiOperation(value = "Add new housing complex", response = Object.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
+    @DeleteMapping(value = "/{id}/photos/{photo-id}")
+    void deletePhoto(
+            @PathVariable("id") Long id,
+            @PathVariable("photo-id") Long photoId
+    ) {
+        logger.info("Delete housing complex photo id: {} photo id: {}", id, photoId);
+        service.deleteHousingComplexPhoto(id, photoId);
+    }
+
     @ApiOperation(value = "Delete housing complex by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),

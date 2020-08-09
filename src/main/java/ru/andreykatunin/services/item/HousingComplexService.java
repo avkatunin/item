@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.andreykatunin.model.HousingComplex;
 import ru.andreykatunin.model.photo.HousingComplexPhoto;
+import ru.andreykatunin.model.photo.Photo;
 import ru.andreykatunin.repository.HousingComplexRepository;
 import ru.andreykatunin.repository.PhotoRepository;
 import ru.andreykatunin.services.EnvironmentData;
@@ -90,6 +91,11 @@ public class HousingComplexService {
             e.printStackTrace();
         }
         return photo;
+    }
+
+    @Transactional
+    public void deleteHousingComplexPhoto(Long id, Long photoId) {
+        photoRepository.deleteById(photoId);
     }
 
     /**
